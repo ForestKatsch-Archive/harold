@@ -1,0 +1,16 @@
+
+@import "http://fonts.googleapis.com/css?family=Roboto+Slab:400,300";
+
+@import "reset.css";
+@import "loading.css";
+
+html, body, #wrapper {
+    overflow: hidden;
+}
+
+html {
+    color: #828;
+    font-family: Roboto Slab, sans-serif;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
