@@ -5,7 +5,11 @@
 @import "loading.css";
 
 html, body, #wrapper {
+    cursor: default;
     overflow: hidden;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
 #wrapper {

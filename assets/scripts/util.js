@@ -6,6 +6,12 @@ function s(i) {
 	return "s";
 }
 
+function distance(a,b) {
+    var x=Math.abs(a[0]-b[0]);
+    var y=Math.abs(a[1]-b[1]);
+    return Math.sqrt((x*x)+(y*y));
+}
+
 function degrees(radians) {
     return (radians/(Math.PI*2))*360;
 }

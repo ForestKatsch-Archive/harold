@@ -1,7 +1,7 @@
 
 var VERSION=[0,0,1];
 
-var modules=["main","prop","canvas","crayon","world","harold"];
+var modules=["main","prop","canvas","crayon","world","gestures","things"];
 var module_number=0;
 var module_start_time;
 
@@ -42,7 +42,8 @@ window.onload=function() {
 	    prop_init(); // MUST BE FIRST!
 	    crayon_init();
 	    world_init();
-	    harold_init();
+	    things_init();
+	    gesture_init();
 	    canvas_init();
 	    loaded("main");
 	} catch(e) {
@@ -73,7 +74,7 @@ function update() {
 	prop.loaded=true;
     }
     world_update();
-    harold_update();
+    things_update();
     canvas_update();
     prop.about.fps=((fps*(prop.about.fps_samples-1))+prop.about.fps)/prop.about.fps_samples;
     last_frame_time=time;
