@@ -1,6 +1,11 @@
 
+function u(m) {
+    return m*prop.canvas.scale; // meters to pixels
+}
+
 function canvas_init() {
     prop.canvas={};
+    prop.canvas.scale=24; // pixels per meter
     prop.canvas.size={};
     prop.canvas.context=$("#canvas").get(0).getContext("2d");
     $(window).resize(canvas_resize);
@@ -30,8 +35,8 @@ function canvas_clear() {
 
 function canvas_draw_ground() {
     prop.canvas.context.beginPath();
-    prop.canvas.context.moveTo(-prop.crayon.size,prop.canvas.size.height-(prop.canvas.size.height/4));
-    prop.canvas.context.lineTo(prop.canvas.size.width+prop.crayon.size,prop.canvas.size.height-(prop.canvas.size.height/4));
+    prop.canvas.context.moveTo(-prop.crayon.size,prop.canvas.size.height-u(prop.world.ground.height));
+    prop.canvas.context.lineTo(prop.canvas.size.width+prop.crayon.size,prop.canvas.size.height-u(prop.world.ground.height));
     prop.canvas.context.stroke();
 }
 

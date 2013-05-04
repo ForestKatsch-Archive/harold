@@ -1,7 +1,7 @@
 
 var VERSION=[0,0,1];
 
-var modules=["main","prop","canvas","crayon"];
+var modules=["main","prop","canvas","crayon","world","harold"];
 var module_number=0;
 var module_start_time;
 
@@ -29,12 +29,10 @@ function init() {
 }
 
 function error(e) {
-    if(!prop.loaded) {
-	$("#loading h1").text("The crayon melted.");
-	$("#loading h1").attr("title","Unfortunately, there's been an error.");
-	console.log("Original error: "+e);
-	$("#loading").addClass("error");
-    }
+    $("#loading h1").text("Harold's crayon melted.");
+    $("#loading h1").attr("title","Unfortunately, there's been an error.");
+    console.log("Original error: "+e);
+    $("#loading").addClass("error");
 }
 
 window.onload=function() {
@@ -43,6 +41,8 @@ window.onload=function() {
 	try {
 	    prop_init(); // MUST BE FIRST!
 	    crayon_init();
+	    world_init();
+	    harold_init();
 	    canvas_init();
 	    loaded("main");
 	} catch(e) {
@@ -57,6 +57,9 @@ function done() {
     console.log("Loaded "+module_number+" module"+s(module_number)+" in "+time+" second"+s(time))
     update();
     $("#loading").addClass("hidden");
+    setTimeout(function() {
+	$("#loading").css("display","none");
+    },1000);
 }
 
 var last_frame_time=0;
@@ -65,11 +68,13 @@ function update() {
     var time=new Date().getTime();
     requestAnimationFrame(update);
     var fps=1/((time-last_frame_time)/1000);
-    canvas_update();
-    prop.about.fps=((fps*(prop.about.fps_samples-1))+prop.about.fps)/prop.about.fps_samples;
     if(!prop.loaded) {
 	$("#loading").removeClass("error");
 	prop.loaded=true;
     }
+    world_update();
+    harold_update();
+    canvas_update();
+    prop.about.fps=((fps*(prop.about.fps_samples-1))+prop.about.fps)/prop.about.fps_samples;
     last_frame_time=time;
 }

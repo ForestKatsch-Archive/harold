@@ -7,7 +7,8 @@
     position: absolute;
     top: 0;
     width: 100%;
-    -webkit-transition: opacity 1s ease;
+    -webkit-transition: opacity 1s ease, background-color 1s ease, top 1s ease;
+    z-index: 100;
 }
 
 #loading .wrapper {
@@ -22,7 +23,7 @@
     display: block;
     margin: 0 auto;
     margin-top: 2em;
-    opacity: 1; /* js overrides after loaded */
+    opacity: 1;
     -webkit-transition: opacity 1s ease;
 }
 
@@ -32,6 +33,7 @@
     -webkit-transition: color 1s ease;
 }
 
-#loading.error h1 {
-    color: #b22;
+#loading.error {
+    background-color: #b22;
+    opacity: 1;
 }
