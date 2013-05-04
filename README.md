@@ -1,4 +1,5 @@
-Harold's Crayon
-======
+Harold's Crayon (HTML5 demo)
+============
 
-Harold's Crayon is an HTML5 demo that uses the <canvas> tag and gesture recognition.
+See the [wiki](https://github.com/forest-ka/harold/wiki) for more details.
+
