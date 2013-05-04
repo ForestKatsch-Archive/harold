@@ -1,31 +1,29 @@
 
 #loading {
-    background-color: #fff;
+    background-color: #828;
+    color: #fff;
     height: 100%;
     left: 0;
     position: absolute;
     top: 0;
     width: 100%;
+    -webkit-transition: opacity 1s ease;
 }
 
 #loading .wrapper {
     margin: 10% 0;
 }
 
+#loading.hidden {
+    opacity: 0;
+}
+
 #loading #loading-animation {
     display: block;
     margin: 0 auto;
     margin-top: 2em;
-    opacity: 0; /* js overrides after loaded */
+    opacity: 1; /* js overrides after loaded */
     -webkit-transition: opacity 1s ease;
-}
-
-#loading #loading-animation.loading {
-    opacity: 1;
-}
-
-#loading.error #loading-animation {
-    opacity: 0;
 }
 
 #loading h1 {

@@ -44,7 +44,7 @@ window.onload=function() {
 	    prop_init(); // MUST BE FIRST!
 	    crayon_init();
 	    canvas_init();
-	    oaded("main");
+	    loaded("main");
 	} catch(e) {
 	    error(e);
 	}
@@ -56,7 +56,7 @@ function done() {
     time=(time/1000).toFixed(3);
     console.log("Loaded "+module_number+" module"+s(module_number)+" in "+time+" second"+s(time))
     update();
-    $("#loading").fadeOut(1000);
+    $("#loading").addClass("hidden");
 }
 
 var last_frame_time=0;
@@ -65,8 +65,11 @@ function update() {
     var time=new Date().getTime();
     requestAnimationFrame(update);
     var fps=1/((time-last_frame_time)/1000);
+    canvas_update();
     prop.about.fps=((fps*(prop.about.fps_samples-1))+prop.about.fps)/prop.about.fps_samples;
-    prop.loaded=true;
-    $("#loading").removeClass("error");
+    if(!prop.loaded) {
+	$("#loading").removeClass("error");
+	prop.loaded=true;
+    }
     last_frame_time=time;
 }

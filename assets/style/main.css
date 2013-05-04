@@ -8,6 +8,15 @@ html, body, #wrapper {
     overflow: hidden;
 }
 
+#wrapper {
+    background-color: #fff;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
 html {
     color: #828;
     font-family: Roboto Slab, sans-serif;
