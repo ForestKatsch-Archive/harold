@@ -7,8 +7,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    -webkit-transition: opacity 1s ease, background-color 1s ease, top 1s ease;
-    z-index: 100;
+    z-index: 1000;
 }
 
 #loading .wrapper {
@@ -16,15 +15,7 @@
 }
 
 #loading.hidden {
-    opacity: 0;
-}
 
-#loading #loading-animation {
-    display: block;
-    margin: 0 auto;
-    margin-top: 2em;
-    opacity: 1;
-    -webkit-transition: opacity 1s ease;
 }
 
 #loading h1 {
@@ -35,5 +26,4 @@
 
 #loading.error {
     background-color: #b22;
-    opacity: 1;
 }

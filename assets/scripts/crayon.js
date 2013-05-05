@@ -9,5 +9,6 @@ function crayon_init() {
     prop.crayon.shadow.offset.y=1;
     prop.crayon.shadow.blur=2;
     prop.crayon.shadow.color="rgba(0,0,0,0.5)";
+    prop.crayon.shadow.color="transparent";
     loaded("crayon");
 }

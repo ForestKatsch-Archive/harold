@@ -1,7 +1,7 @@
 
 var VERSION=[0,0,1];
 
-var modules=["main","prop","canvas","crayon","world","gestures","things"];
+var modules=["main","prop","canvas","crayon","world","gestures","things","load"];
 var module_number=0;
 var module_start_time;
 
@@ -32,35 +32,39 @@ function error(e) {
     $("#loading h1").text("Harold's crayon melted.");
     $("#loading h1").attr("title","Unfortunately, there's been an error.");
     console.log("Original error: "+e);
+    show_error();
+}
+
+function show_error() {
     $("#loading").addClass("error");
+    $("#loading").fadeIn(1000);
 }
 
 window.onload=function() {
     init();
     setTimeout(function() {
-	try {
-	    prop_init(); // MUST BE FIRST!
-	    crayon_init();
-	    world_init();
-	    things_init();
-	    gesture_init();
-	    canvas_init();
-	    loaded("main");
-	} catch(e) {
-	    error(e);
-	}
+	prop_init(); // MUST BE FIRST!
+	crayon_init();
+	world_init();
+	things_init();
+	gesture_init();
+	load_init();
+	canvas_init();
+	loaded("main");
     },0);
 };
+
+function hide_loading() {
+    $("#loading").addClass("hidden");
+    $("#loading").fadeOut(1000);
+}
 
 function done() {
     var time=new Date().getTime()-module_start_time;
     time=(time/1000).toFixed(3);
     console.log("Loaded "+module_number+" module"+s(module_number)+" in "+time+" second"+s(time))
     update();
-    $("#loading").addClass("hidden");
-    setTimeout(function() {
-	$("#loading").css("display","none");
-    },1000);
+    hide_loading();
 }
 
 var last_frame_time=0;

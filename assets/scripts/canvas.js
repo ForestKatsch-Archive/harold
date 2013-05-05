@@ -6,9 +6,11 @@ function u(m) {
 function canvas_init() {
     prop.canvas={};
     prop.canvas.anim={};
+    prop.canvas.fade_timeout=null;
+    prop.canvas.fade_time=300;
     prop.canvas.anim.gesture_opacity=0;
     prop.canvas.scale=48; // pixels per meter
-    prop.canvas.smooth_distance=50; // distance before new line with gesture
+    prop.canvas.smooth_distance=20; // distance before new line with gesture
     prop.canvas.pan=0; // horizontal pan in pixels (if(prop.canvas.pan == 0 && position == 0) centered)
     prop.canvas.size={};
     prop.canvas.context=$("#canvas").get(0).getContext("2d");
@@ -45,14 +47,29 @@ function canvas_draw_ground() {
     prop.canvas.context.stroke();
 }
 
+function canvas_fade() {
+    prop.canvas.anim.gesture_opacity-=0.01;
+    if(prop.canvas.anim.gesture_opacity < 0)
+	prop.canvas.anim.gesture_opacity=0;
+    else
+	setTimeout(canvas_fade,1000/60);
+}
+
 function canvas_draw_current() {
     if(prop.gestures.current.length <= 1)
 	return;
-    if(prop.gestures.recording == true)
+    if(prop.gestures.recording == true) {
+	clearTimeout(prop.canvas.fade_timeout);
 	prop.canvas.anim.gesture_opacity=1;
-    else
-	prop.canvas.anim.gesture_opacity-=0.05;
+    } else {
+	if(prop.gestures.matched == false)
+	    prop.canvas.fade_timeout=setTimeout(canvas_fade,prop.canvas.fade_time);
+	else
+	    canvas_fade();
+    }
     prop.canvas.anim.gesture_opacity=Math.max(prop.canvas.anim.gesture_opacity,0);
+    if(prop.gestures.matched == false)
+	prop.canvas.context.strokeStyle="#f22";
     prop.canvas.context.globalAlpha=prop.canvas.anim.gesture_opacity;
     prop.canvas.context.beginPath();
     prop.canvas.context.moveTo(prop.gestures.current[0][0],prop.gestures.current[0][1]);
@@ -88,13 +105,23 @@ function canvas_draw_current() {
 }
 
 function canvas_draw_elements() {
+    for(var i=0;i<prop.things.instances.length;i++) {
+//	prop.things.instances[i].draw();
+    }
+}
 
+function canvas_draw_sky() {
+    for(var i=0;i<prop.things.instances.length;i++) {
+	if(prop.things.instances[i].type == "sky")
+	    prop.things.instances[i].draw();
+    }
 }
 
 function canvas_update() {
     canvas_clear();
     prop.canvas.context.save();
     canvas_draw_ground();
+    canvas_draw_sky();
     prop.canvas.context.translate(prop.canvas.pan+prop.canvas.size.width/2,
 				  prop.canvas.size.height-u(prop.world.ground.height));
     canvas_draw_elements();

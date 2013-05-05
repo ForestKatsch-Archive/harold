@@ -3,6 +3,7 @@
 
 @import "reset.css";
 @import "loading.css";
+@import "text.css";
 
 html, body, #wrapper {
     cursor: default;

@@ -1,4 +1,11 @@
 
+function to_points(p) {
+    var points=[];
+    for(var i=0;i<p.length;i++) {
+	points.push(new Point(p[i][0],p[i][1]));
+    }
+    return points;
+}
 function s(i) {
     if(i == 1)
 	return "";
