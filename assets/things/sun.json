@@ -1,0 +1,18 @@
+{
+    "name":"Sun",
+    "author":"Forest Ka",
+    "version":"0.1",
+    "type":"sky",
+    "physics":"ghost",
+    "position":"draw",
+    "maximum":1,
+    "shape":{
+	"default":[
+	    ["begin"],
+	    ["color","#ea6"],
+	    ["arc_to",[0,0],1,0,360],
+	    ["color","#ea6"],
+	    ["stroke"]
+	]
+    }
+}

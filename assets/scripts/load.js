@@ -1,6 +1,6 @@
 
-var THINGS=["moon"];
-var GESTURES=["moon_crescent"];
+var THINGS=["moon","sun","cloud"];
+var GESTURES=["moon_crescent","sun","cloud"];
 
 function load_init() {
     // dummy function to load all assets

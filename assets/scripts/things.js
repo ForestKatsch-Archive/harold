@@ -30,7 +30,6 @@ var Thing=function(data) {
 	prop.canvas.context.lineTo(x,y);
     };
     this.draw_arc_to=function(i) {
-	console.log("arc_to");
 	var x=u(i[1][0]);
 	var y=u(i[1][1]);
 	var radius=u(i[2]);
@@ -39,7 +38,7 @@ var Thing=function(data) {
 	var backwards=false;
 	if(end < start)
 	    backwards=true;
-	prop.canvas.context.arc(x,y,radius,start,end,backwards);
+	prop.canvas.context.arcTo(x,y,radius,start,end,backwards);
     };
     this.draw_stroke=function(i) {
 	prop.canvas.context.stroke();
@@ -54,6 +53,8 @@ var Thing=function(data) {
 	prop.canvas.context.rotate(radians(i[1]));
     };
     this.draw_color=function(i) {
+	if(i[1] == "sky")
+	    i[1]="#fff";
 	prop.canvas.context.fillStyle=i[1];
 	prop.canvas.context.strokeStyle=i[1];
     };
@@ -127,19 +128,25 @@ function thing_load_from_url(url,name) {
 }
 
 function thing_load(thing) {
-    thing_load_from_url(prop.network.url.root+"assets/things/"+thing+"/thing.json",thing);
+    thing_load_from_url(prop.network.url.root+"assets/things/"+thing+".json",thing);
 }
 
 function thing_new(name,position) {
+    if(!(name in prop.things.things)) {
+	console.log("Nothing thing "+name);
+	return;
+    }
     var d=prop.things.things[name].data;
     var m=1;
     if(d.maximum == undefined)
 	m=Infinity;
-    for(var i=prop.things.instances.length-1;i>-1;i--) {
-	console.log(prop.things.instances[i]);
-	if(prop.things.instances[i].data.thing == name) {
-	    prop.things.instances.splice(i,1);
-	    i-=1;
+    if(m == 1) {
+	for(var i=prop.things.instances.length-1;i>-1;i--) {
+	    console.log(prop.things.instances[i]);
+	    if(prop.things.instances[i].data.thing == name) {
+		prop.things.instances.splice(i,1);
+		i-=1;
+	    }
 	}
     }
     if(!(name in prop.things.things))
